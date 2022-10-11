@@ -11,7 +11,7 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/zhang00829/gin-lite/internal/bytesconv"
+	"github.com/zhang00829/ginLite/internal/bytesconv"
 )
 
 var (

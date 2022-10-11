@@ -9,7 +9,7 @@ import (
 	"path"
 	"sync"
 
-	"github.com/zhang00829/gin-lite/internal/bytesconv"
+	"github.com/zhang00829/ginLite/internal/bytesconv"
 )
 
 const defaultMultipartMemory = 32 << 20 // 32 MB

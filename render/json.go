@@ -7,7 +7,7 @@ package render
 import (
 	"net/http"
 
-	"github.com/zhang00829/gin-lite/internal/json"
+	"github.com/zhang00829/ginLite/internal/json"
 )
 
 // JSON contains the given interface object.
