@@ -18,3 +18,40 @@ func main() {
 }
 
 ```
+## 简化后的结构
+```text
+.
+├── README.md
+├── binding
+│   ├── binding.go
+│   ├── default_validator.go
+│   ├── form.go
+│   ├── form_mapping.go
+│   ├── header.go
+│   ├── json.go
+│   ├── multipart_form_mapping.go
+│   ├── query.go
+│   └── uri.go
+├── context.go
+├── errors.go
+├── fs.go
+├── gin.go
+├── go.mod
+├── go.sum
+├── internal
+│   ├── bytesconv
+│   │   └── bytesconv.go
+│   └── json
+│       └── json.go
+├── logger.go
+├── mode.go
+├── path.go
+├── recovery.go
+├── render
+│   ├── json.go
+│   └── render.go
+├── response_writer.go
+├── routergroup.go
+├── tree.go
+└── utils.go
+```
