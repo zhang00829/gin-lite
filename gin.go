@@ -121,7 +121,6 @@ var _ IRouter = &Engine{}
 // - UseRawPath:             false
 // - UnescapePathValues:     true
 func New() *Engine {
-	debugPrintWARNINGNew()
 	engine := &Engine{
 		RouterGroup: RouterGroup{
 			Handlers: nil,
@@ -147,7 +146,6 @@ func New() *Engine {
 
 // Default returns an Engine instance with the Logger and Recovery middleware already attached.
 func Default() *Engine {
-	debugPrintWARNINGDefault()
 	engine := New()
 	engine.Use(Logger(), Recovery())
 	return engine
@@ -198,8 +196,6 @@ func (engine *Engine) addRoute(method, path string, handlers HandlersChain) {
 	assert1(method != "", "HTTP method can not be empty")
 	assert1(len(handlers) > 0, "there must be at least one handler")
 
-	debugPrintRoute(method, path, handlers)
-
 	root := engine.trees.get(method)
 	if root == nil {
 		root = new(node)
@@ -248,10 +244,7 @@ func iterate(path, method string, routes RoutesInfo, root *node) RoutesInfo {
 // It is a shortcut for http.ListenAndServe(addr, router)
 // Note: this method will block the calling goroutine indefinitely unless an error happens.
 func (engine *Engine) Run(addr ...string) (err error) {
-	defer func() { debugPrintError(err) }()
-
 	address := resolveAddress(addr)
-	debugPrint("Listening and serving HTTP on %s\n", address)
 	err = http.ListenAndServe(address, engine.Handler())
 	return
 }
@@ -349,10 +342,7 @@ func serveError(c *Context, code int, defaultMessage []byte) {
 	}
 	if c.writermem.Status() == code {
 		c.writermem.Header()["Content-Type"] = mimePlain
-		_, err := c.Writer.Write(defaultMessage)
-		if err != nil {
-			debugPrint("cannot write message to writer during serve error: %v", err)
-		}
+		c.Writer.Write(defaultMessage)
 		return
 	}
 	c.writermem.WriteHeaderNow()
@@ -385,14 +375,12 @@ func redirectFixedPath(c *Context, root *node, trailingSlash bool) bool {
 
 func redirectRequest(c *Context) {
 	req := c.Request
-	rPath := req.URL.Path
 	rURL := req.URL.String()
 
 	code := http.StatusMovedPermanently // Permanent redirect, request with GET method
 	if req.Method != http.MethodGet {
 		code = http.StatusTemporaryRedirect
 	}
-	debugPrint("redirecting request %d: %s --> %s", code, rPath, rURL)
 	http.Redirect(c.Writer, req, rURL, code)
 	c.writermem.WriteHeaderNow()
 }
