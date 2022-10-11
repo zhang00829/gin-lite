@@ -1,4 +1,4 @@
-module github.com/zhang00829/gin-lite
+module github.com/zhang00829/ginLite
 
 go 1.18
 
