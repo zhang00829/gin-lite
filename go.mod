@@ -1,4 +1,4 @@
-module github.com/gin-gonic/gin
+module github.com/zhang00829/gin-lite
 
 go 1.18
 
@@ -6,7 +6,6 @@ require (
 	github.com/gin-contrib/sse v0.1.0
 	github.com/go-playground/validator/v10 v10.10.0
 	github.com/mattn/go-isatty v0.0.14
-	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
 )
 
 require (
